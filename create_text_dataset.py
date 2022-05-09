@@ -6,7 +6,7 @@ import os
 import random
 
 # How large of a sample of the data to take
-samples = 3797  # This is how many we have from category 1 (fewest of any category)
+samples = 4723  # This is how many we have from category 1 (fewest of any category)
 
 # Note: Assumes that original data files are located in the following directories:
 #   ../Data/category_wise_data
@@ -20,8 +20,8 @@ except FileNotFoundError:
     exit(1)
 
 new_text_df = full_text_df[0:0].copy()  # Get new text data if it already exists. Otherwise, create empty new df
-if os.path.exists('/dataset/category_wise_data/category_' + str(category_num) + '.csv'):
-    new_text_df = pd.read_csv('/dataset/category_wise_data/category_' + str(category_num) + '.csv')
+if os.path.exists('./dataset/category_wise_data/category_' + str(category_num) + '.csv'):
+    new_text_df = pd.read_csv('./dataset/category_wise_data/category_' + str(category_num) + '.csv')
 else:
     new_text_df = pd.DataFrame(columns=['Video Id', 'Title', 'Description'])
 
@@ -50,5 +50,5 @@ for file in image_files:  # Iterate through shuffled file names
             new_text_df.loc[len(new_text_df)] = [file[:-4], full_text_df.at[i, 'Title'], full_text_df.at[i, 'Description']]
 
 print(new_text_df)
-path_str = '/dataset/category_wise_data/category_' + str(category_num) + '.csv'
+path_str = './dataset/category_wise_data/category_' + str(category_num) + '.csv'
 new_text_df.to_csv(path_str, index=False)
